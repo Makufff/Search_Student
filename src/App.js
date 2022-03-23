@@ -2,7 +2,7 @@ import React , {useState} from "react";
 import Students from "./database/students"
 import Searchinput from "./components/searchinput"
 import DataTable from "./components/datatable"
-import { Button, Grid, Header, Image, List, ListItem, Modal, Table } from 'semantic-ui-react'
+import { Button, Grid, Header, Icon, Image, Label, List, ListItem, Modal, Table } from 'semantic-ui-react'
 import './App.css'
 
 const styleLink = document.createElement("link");
@@ -28,6 +28,7 @@ function App() {
     type : '',
     school : '',
     province : '',
+    sectype : '',
     condition : ''
   })
 
@@ -44,6 +45,7 @@ function App() {
       type : element.ประเภทสมัคร,
       school : element.สถานศึกษาเดิม,
       province : element.จังหวัด,
+      sectype : element.ประเภท,
       condition : element.เงื่อนไข
     })
     setOpen(true)
@@ -51,13 +53,26 @@ function App() {
 
   const filterData = Students.filter( (element , index) => {
       if(
-
+        // element.ชื่อ === searchText||
+        // element.นามสกุล === searchText || 
+        // element.คำนำหน้า === searchText ||
+        // element.เลขประจำตัวสอบ.toString() === searchText ||
+        // element.เลขประจำตัวประชาชน.toString() === searchText
         element.ชื่อ.startsWith(searchText)||
         element.นามสกุล.startsWith(searchText) || 
         element.คำนำหน้า.startsWith(searchText) ||
         element.เลขประจำตัวสอบ.toString().startsWith(searchText) ||
         element.เลขประจำตัวประชาชน.toString().startsWith(searchText)
       )return true ;
+      // if(searchText === '')return true ;
+      // console.log(searchText);
+      // if(!element.ชื่อ || 
+      //   !element.นามสกุล ||
+      //    !element.คำนำหน้า ||
+      //     !element.เลขประจำตัวสอบ ||
+      //      !element.เลขประจำตัวประชาชน)
+      //   console.log(element);
+    
   })
   const Data = filterData.map((element ,index) => {
     return <Table.Row>
@@ -75,9 +90,14 @@ function App() {
 
   return (
     <div className="App">
+      <Header as='h1'>
+        💻 รายชื่อนักเรียนสอบเข้ารอบทั่วไป ม.1 ม.4 และ เงื่อนไขพิเศษ 
+      </Header>
+      <Label>
+        <Icon name='closed captioning outline' /> โรงเรียนศรียาภัย
+      </Label>
       <div className="Container">
         <Grid.Column>
-          
         </Grid.Column>
           <div className = "item"><Searchinput value = {searchText} onvalueChange={setsearchText}/></div>
           <div className = "item"><DataTable Data = {Data}/></div>
@@ -96,6 +116,7 @@ function App() {
           <List.Item as='li'>ประเภทสมัคร : {dataDetail.type}</List.Item>
           <List.Item as='li'>สถานศึกษาเดิม : {dataDetail.school}</List.Item>
           <List.Item as='li'>จังหวัด : {dataDetail.province}</List.Item>
+          <List.Item as='li'>ประเภท : {dataDetail.sectype}</List.Item>
           <List.Item as='li'>เงื่อนไข : {dataDetail.condition}</List.Item>
         </Modal.Content>
         <Modal.Actions>

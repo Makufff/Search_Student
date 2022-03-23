@@ -6,7 +6,7 @@ function searchinput (props)  {
     const {value , onvalueChange} = props ;
     return (
         <div className="searchinput">
-          <Input type = 'text' placeholder = "type here" value = {value} onChange = { (event) => {onvalueChange(event.target.value)}}/>
+          <Input type = 'text' placeholder = "กรุณาค้นหาด้วย : 	เลขประจำตัวสอบ , เลขประจำตัวประชาชน	 , ชื่อ , นามสกุล" value = {value} onChange = { (event) => {onvalueChange(event.target.value)}}/>
         </div>
     )
 }
